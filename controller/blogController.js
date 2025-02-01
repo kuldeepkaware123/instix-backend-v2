@@ -7,7 +7,8 @@ const imagekit = initImageKit();
 export const createBlog = async (req, res) => {
   try {
     const file = req.files?.image;
-    const { title, category, description,metaKeywords, metaDescription } = req.body;
+    const { title, category, description, metaKeywords, metaDescription } =
+      req.body;
     if (!file) {
       return errorResponse(res, "No file uploaded", 400);
     }
@@ -15,13 +16,12 @@ export const createBlog = async (req, res) => {
     switch (true) {
       case !title:
         return errorResponse(res, "Title is required", 400);
-      case !category:
-        return errorResponse(res, "Category is required", 400);
-
-      case !description:
-        return errorResponse(res, "Description is required", 400);
       case !metaKeywords:
         return errorResponse(res, "Meta keywords is required", 400);
+      case !category:
+        return errorResponse(res, "Category is required", 400);
+      case !description:
+        return errorResponse(res, "Description is required", 400);
       case !metaDescription:
         return errorResponse(res, "Meta description is required", 400);
     }
@@ -106,7 +106,8 @@ export const updateBlog = async (req, res) => {
     // check if image is updated
 
     const file = req.files?.image;
-    const { title, category, description,metaKeywords, metaDescription } = req.body;
+    const { title, category, description, metaKeywords, metaDescription } =
+      req.body;
 
     if (file) {
       const fileName = `instix-${Date.now()}${path.extname(file.name)}`;
@@ -124,7 +125,7 @@ export const updateBlog = async (req, res) => {
     blog.title = title || blog.title;
     blog.category = category || blog.category;
     blog.description = description || blog.description;
-    blog.metaKeywords = metaKeywords || blog.metaKeywords
+    blog.metaKeywords = metaKeywords || blog.metaKeywords;
     blog.metaDescription = metaDescription || blog.metaDescription;
 
     await blog.save();
